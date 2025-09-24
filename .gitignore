@@ -274,3 +274,6 @@ pyrightconfig.json
 *.box
 
 # End of https://www.toptal.com/developers/gitignore/api/python,vagrant,django
+
+# Pycharm settings
+.idea/
