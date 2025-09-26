@@ -7,7 +7,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework import filters
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.settings import api_settings
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
 # local imports
 from . import models
@@ -20,7 +20,10 @@ class ProfileViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.ProfileSerializer
     queryset = models.UserProfile.objects.all()
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (permissions.ProfileOwnerUpdateOnly,)
+    permission_classes = (
+        permissions.ProfileOwnerUpdateOnly,
+        IsAuthenticated,
+    )
     filter_backends = (filters.SearchFilter,)
     search_fields = ('email', 'first_name')
 
