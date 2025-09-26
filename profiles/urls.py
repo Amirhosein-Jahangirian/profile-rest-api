@@ -6,5 +6,6 @@ router = routers.SimpleRouter()
 router.register('profiles', views.ProfileViewSet, basename='profiles-general')
 
 urlpatterns = [
+    path('login/', views.UserLoginApiView.as_view()),
     path('', include(router.urls)),
 ]

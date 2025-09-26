@@ -4,6 +4,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework import filters
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.settings import api_settings
 
 
 # local imports
@@ -20,3 +22,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsOwnerOrReadOnly,)
     filter_backends = (filters.SearchFilter,)
     search_fields = ('email','first_name')
+
+class UserLoginApiView(ObtainAuthToken):
+    """perform user login with token authentication"""
+    renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
