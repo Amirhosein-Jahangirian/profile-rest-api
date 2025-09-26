@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
+from django.conf import settings
 
 
 class UserProfileManager(BaseUserManager):
@@ -55,3 +56,17 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         """retuen string representation of our user"""
         return self.email
+
+class ProfileFeedItem(models.Model):
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+    created_on = models.DateField(auto_now_add=True)
+    last_edited = models.DateField(auto_now=True)
+    feed_title = models.CharField(max_length=200)
+    feed_description = models.CharField(max_length=1000)
+
+    def __str__(self):
+        return f'{self.feed_title} by {self.owner}'
+
